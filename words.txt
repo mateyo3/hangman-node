@@ -1,0 +1,8 @@
+bones
+heart
+hands
+arms
+head
+eyes
+fingers
+hair
