@@ -1,9 +1,9 @@
 //Global variables & arrays
-var guessWord = "";
+var guessesRemaining = 2;
 var blanks = 0;
-var guessesRemaining = 9;
+var guessWord = "";
 var guessWordLetters = [];
-var letterGuessed =[];
+var lettersGuessed =[];
 var blanksAndCorrect = [];
 var incorrectGuess = [];
 
@@ -46,12 +46,43 @@ function randomWord() {
 		//display letters in console as blanks
 		console.log("blanksAndCorrect: " + blanksAndCorrect);
 	});
-
-
 }//end: function(word)
 
 //run randomWord function
 randomWord();
+
+//constructor function: Word
+function Word(guessWord, blanksAndCorrect, lettersGuessed, guessesRemaining){
+	this.guessWord = guessWord; //do not print this
+	this.blanksAndCorrect = blanksAndCorrect;
+	this.lettersGuessed = lettersGuessed;
+	this.guessesRemaining = guessesRemaining;
+
+}// end: constructor function: Word
+
+//print method to display Word constructor function objects
+Word.prototype.printInfo = function() {
+	console.log("\nSecret word: " + this.blanksAndCorrect + "\nLetters Guessed: " + lettersGuessed + "\nGuesses Remaining: " + this.guessesRemaining);
+};
+
+
+//start inquirer for user input
+var inquirer = require("inquirer");
+
+//start questions
+inquirer.prompt([
+	//input username
+	{
+    type: "input",
+    name: "name",
+    message: "Guess a letter"
+	}
+]).then(function(answers) {
+	var newWord = new Word(answers.guessWord, answers.blanksAndCorrect, answers.lettersGuessed, answers.guessesRemaining);
+	newWord.printInfo();
+	
+});
+
 
 
 
@@ -93,10 +124,7 @@ randomWord();
 // 	console.log("Directions: Press a key to guess the letters in the word.")
 // }
 
-// //constructor function: Word
-// function Word(word){
-// 	this.word = word;
-// }// end: constructor function: Word
+
 
 
 // //constructor function: Letter
@@ -106,7 +134,7 @@ randomWord();
 
 // var askQuestion = function() {
 
-// 	if (count < 3) {
+// 	if (count < 2) {
 // 		inquirer.prompt([
 // 			{
 // 				name: "question"
