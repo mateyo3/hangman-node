@@ -25,15 +25,25 @@ function randomWord() {
 		//check that random word is working
 		console.log("******");
 		console.log("The word is: " + guessWord);
+
+		//split guessWord into array of letters
+		guessWordLetters = guessWord.split("");
+		console.log("This is an array: " + guessWordLetters);
+
+		//displays blanks based on number of letters in guessWordLetters array
+		blanks = 
 	});
+
+
 }//end: function(word)
 
 //run randomWord function
 randomWord();
 
 
-//split guessWord into array of letters
-var letterArray =[];
+
+
+
 
 
 // //start inquirer for user input
