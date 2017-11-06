@@ -1,3 +1,5 @@
+var secretWord = require("./randomWord");
+
 //Global variables & arrays
 var guessesRemaining = 2;
 var blanks = 0;
@@ -9,25 +11,7 @@ var incorrectGuess = [];
 
 
 //Read text from words.txt file to choose random word and display blanks
-function randomWord() {
-	var fs = require("fs");
-	fs.readFile("words.txt", "utf8", function(error, data) {
-
-		if (error) {
-		return console.log(error);
-		}
-
-		//check that the words.txt file is being read
-		console.log("Every word in the words.txt\n******\n" + data);
-
-		var wordArr = data.toString().split("\n");
-		guessWord = wordArr[Math.floor(Math.random() * wordArr.length)];
-		
-		//check that random word is working
-		console.log("******");
-		console.log("The word is: " + guessWord);
-
-		//split guessWord into array of letters
+function addBlanks() {
 		guessWordLetters = guessWord.split("");
 		//check that .split is working
 		console.log("This is an array: " + guessWordLetters);
@@ -45,24 +29,40 @@ function randomWord() {
 
 		//display letters in console as blanks
 		console.log("blanksAndCorrect: " + blanksAndCorrect);
-	});
-}//end: function(word)
+	};//end: function(word)
 
 //run randomWord function
-randomWord();
+// addBlanks();
+
+
+// function newWord () {
+// 	var fs = require("fs");
+// 	fs.readFile("words.txt", "utf8", function(error, data) {
+
+// 		if (error) {
+// 			return console.log(error);
+// 		}
+
+// 	//check that the words.txt file is being read
+// 	console.log("Every word in the words.txt\n******\n" + data);
+
+// 	var wordArr = data.toString().split("\n");
+// 	guessWord = wordArr[Math.floor(Math.random() * wordArr.length)];
+// 	});
+// }
 
 //constructor function: Word
 function Word(guessWord, blanksAndCorrect, lettersGuessed, guessesRemaining){
-	this.guessWord = guessWord; //do not print this
+	this.guessWord = secretWord;
 	this.blanksAndCorrect = blanksAndCorrect;
 	this.lettersGuessed = lettersGuessed;
 	this.guessesRemaining = guessesRemaining;
 
-}// end: constructor function: Word
+};// end: constructor function: Word
 
 //print method to display Word constructor function objects
 Word.prototype.printInfo = function() {
-	console.log("\nSecret word: " + this.blanksAndCorrect + "\nLetters Guessed: " + lettersGuessed + "\nGuesses Remaining: " + this.guessesRemaining);
+	console.log("Random word: " + this.guessWord + "\nSecret word: " + this.blanksAndCorrect + "\nLetters Guessed: " + lettersGuessed + "\nGuesses Remaining: " + this.guessesRemaining);
 };
 
 
@@ -74,17 +74,14 @@ inquirer.prompt([
 	//input username
 	{
     type: "input",
-    name: "name",
+    name: "letter",
     message: "Guess a letter"
 	}
 ]).then(function(answers) {
 	var newWord = new Word(answers.guessWord, answers.blanksAndCorrect, answers.lettersGuessed, answers.guessesRemaining);
 	newWord.printInfo();
-	
+
 });
-
-
-
 
 
 
