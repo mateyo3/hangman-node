@@ -8,7 +8,8 @@ var guessWordLetters = [];
 var lettersGuessed =[];
 var blanksAndCorrect = [];
 var incorrectGuess = [];
-
+// console.log("Guesses Remaining: " + guessesRemaining);
+// console.log("Lettersguessed: " + lettersGuessed);
 
 //Read text from words.txt file to choose random word and display blanks
 function addBlanks() {
@@ -30,26 +31,10 @@ function addBlanks() {
 		//display letters in console as blanks
 		console.log("blanksAndCorrect: " + blanksAndCorrect);
 	};//end: function(word)
-
-//run randomWord function
 // addBlanks();
 
-
-// function newWord () {
-// 	var fs = require("fs");
-// 	fs.readFile("words.txt", "utf8", function(error, data) {
-
-// 		if (error) {
-// 			return console.log(error);
-// 		}
-
-// 	//check that the words.txt file is being read
-// 	console.log("Every word in the words.txt\n******\n" + data);
-
-// 	var wordArr = data.toString().split("\n");
-// 	guessWord = wordArr[Math.floor(Math.random() * wordArr.length)];
-// 	});
-// }
+//start inquirer for user input
+var inquirer = require("inquirer");
 
 //constructor function: Word
 function Word(guessWord, blanksAndCorrect, lettersGuessed, guessesRemaining){
@@ -58,7 +43,7 @@ function Word(guessWord, blanksAndCorrect, lettersGuessed, guessesRemaining){
 	this.lettersGuessed = lettersGuessed;
 	this.guessesRemaining = guessesRemaining;
 
-};// end: constructor function: Word
+}// end: constructor function: Word
 
 //print method to display Word constructor function objects
 Word.prototype.printInfo = function() {
@@ -66,25 +51,28 @@ Word.prototype.printInfo = function() {
 };
 
 
-//start inquirer for user input
-var inquirer = require("inquirer");
-
 //start questions
 inquirer.prompt([
-	//input username
+	//input letter
 	{
     type: "input",
-    name: "letter",
+    name: "lettersGuessed",
     message: "Guess a letter"
 	}
 ]).then(function(answers) {
 	var newWord = new Word(answers.guessWord, answers.blanksAndCorrect, answers.lettersGuessed, answers.guessesRemaining);
 	newWord.printInfo();
+	lettersGuessed--;
+	if (lettersGuessed.length < 1){
+		endGame();
+	}
 
 });
 
 
-
+function endGame(){
+	console.log("Game over. Thank you for playing!");
+}
 
 
 // //start inquirer for user input
