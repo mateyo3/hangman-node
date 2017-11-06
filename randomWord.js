@@ -8,7 +8,7 @@ fs.readFile("words.txt", "utf8", function(error, data) {
 	}
 
 	//check that the words.txt file is being read
-	console.log("Every word in the words.txt\n******\n" + data);
+	console.log("\nEvery word in the words.txt\n******\n" + data);
 
 	var wordArr = data.toString().split("\n");
 	guessWord = wordArr[Math.floor(Math.random() * wordArr.length)];
