@@ -40,7 +40,7 @@ var inquirer = require("inquirer");
 function Word(guessWord, blanksAndCorrect, lettersGuessed, guessesRemaining){
 	this.guessWord = secretWord;
 	this.blanksAndCorrect = blanksAndCorrect;
-	this.lettersGuessed = lettersGuessed;
+	this.lettersGuessed = [];
 	this.guessesRemaining = guessesRemaining;
 
 }// end: constructor function: Word
